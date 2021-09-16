@@ -38,6 +38,7 @@ class Word {
   static const String playingAudioSurat = 'Sedang memutar surat';
   static const String yes = 'Iya';
   static const String no = 'Tidak';
+  static const String arahQiblat = 'Arah qiblat';
 }
 
 class ValidationWord {

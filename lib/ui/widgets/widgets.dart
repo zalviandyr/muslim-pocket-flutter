@@ -6,3 +6,4 @@ export 'surat_item.dart';
 export 'ayat_item.dart';
 export 'arabic_card.dart';
 export 'snackbar.dart';
+export 'qiblat_compass.dart';

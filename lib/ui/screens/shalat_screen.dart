@@ -83,18 +83,22 @@ class _ShalatScreenState extends State<ShalatScreen> {
     });
   }
 
-  void _toNiatShalatDetailScreen(List<NiatBacaanShalat> niatShalat) {
-    Get.to(() => NiatShalatDetailScreen(niatShalat: niatShalat));
+  void _toNiatShalatScreen(List<NiatBacaanShalat> niatShalat) {
+    Get.to(() => NiatShalatScreen(niatShalat: niatShalat));
   }
 
-  void _toBacaanShalatDetailScreen(List<NiatBacaanShalat> bacaanShalat) {
-    Get.to(() => BacaanShalatDetailScreen(bacaanShalat: bacaanShalat));
+  void _toBacaanShalatScreen(List<NiatBacaanShalat> bacaanShalat) {
+    Get.to(() => BacaanShalatScreen(bacaanShalat: bacaanShalat));
   }
 
   void _navigationListener(BuildContext context, int state) {
     if (state == 1 && !(_shalatScreenBloc.state is ShalatScreenFetchSuccess)) {
       _shalatScreenBloc.add(ShalatScreenFetch());
     }
+  }
+
+  void _toArahQiblatScreen() {
+    Get.to(() => ArahQiblat());
   }
 
   @override
@@ -124,13 +128,17 @@ class _ShalatScreenState extends State<ShalatScreen> {
                   const SizedBox(height: 20.0),
                   SecondaryButton(
                     label: Word.niatShalat,
-                    onTap: () => _toNiatShalatDetailScreen(state.niatShalat),
+                    onTap: () => _toNiatShalatScreen(state.niatShalat),
                   ),
                   const SizedBox(height: 10.0),
                   SecondaryButton(
                     label: Word.bacaanShalat,
-                    onTap: () =>
-                        _toBacaanShalatDetailScreen(state.bacaanShalat),
+                    onTap: () => _toBacaanShalatScreen(state.bacaanShalat),
+                  ),
+                  const SizedBox(height: 10.0),
+                  SecondaryButton(
+                    label: Word.arahQiblat,
+                    onTap: () => _toArahQiblatScreen(),
                   ),
                 ],
               );

@@ -3,16 +3,16 @@ import 'package:muslim_pocket/config/configs.dart';
 import 'package:muslim_pocket/models/models.dart';
 import 'package:muslim_pocket/ui/widgets/widgets.dart';
 
-class BacaanShalatDetailScreen extends StatelessWidget {
+class BacaanShalatScreen extends StatelessWidget {
   final List<NiatBacaanShalat> bacaanShalat;
 
-  const BacaanShalatDetailScreen({required this.bacaanShalat});
+  const BacaanShalatScreen({required this.bacaanShalat});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bacaan Shalat'),
+        title: Text(Word.bacaanShalat),
       ),
       body: ListView.builder(
         padding: const EdgeInsets.symmetric(

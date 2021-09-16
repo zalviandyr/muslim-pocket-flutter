@@ -9,8 +9,9 @@ export 'doa_screen.dart';
 export 'nabi_screen.dart';
 export 'splash_screen.dart';
 
-export 'detail/niat_shalat_detail_screen.dart';
-export 'detail/bacaan_shalat_detail_screen.dart';
+export 'detail/niat_shalat_screen.dart';
+export 'detail/bacaan_shalat_screen.dart';
+export 'detail/arah_qiblat.dart';
 export 'detail/prayer_detail_screen.dart';
 export 'detail/nabi_detail_screen.dart';
 export 'detail/quran_detail_screen.dart';
