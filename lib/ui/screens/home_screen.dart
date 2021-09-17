@@ -34,6 +34,10 @@ class _HomeScreenState extends State<HomeScreen> {
     Get.to(() => UserDetailScreen());
   }
 
+  void _toQuranDetailAction(QuranSurat lastRead) {
+    Get.to(() => QuranDetailScreen(quranSurat: lastRead));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -239,38 +243,61 @@ class _HomeScreenState extends State<HomeScreen> {
         if (state is QuranFetchLastReadSuccess) {
           QuranSurat? lastRead = state.lastRead;
           if (lastRead != null) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            return Stack(
               children: [
-                Text(
-                  Word.lastRead,
-                  style: Theme.of(context).textTheme.bodyText1,
-                ),
-                const SizedBox(height: 10.0),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: Measure.horizontalPadding,
-                      vertical: Measure.verticalPadding),
-                  width: double.infinity,
-                  constraints: BoxConstraints(minHeight: 160.0),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: Pallette.boxShadow,
-                    borderRadius: BorderRadius.circular(Measure.borderRadius),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        lastRead.surat,
-                        style: Theme.of(context).textTheme.headline2,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          Word.lastRead,
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                        Icon(
+                          Icons.chevron_right,
+                          color: Pallette.black,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10.0),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: Measure.horizontalPadding,
+                          vertical: Measure.verticalPadding),
+                      width: double.infinity,
+                      constraints: BoxConstraints(minHeight: 160.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        boxShadow: Pallette.boxShadow,
+                        borderRadius:
+                            BorderRadius.circular(Measure.borderRadius),
                       ),
-                      Text(lastRead.meaning),
-                      const SizedBox(height: 10.0),
-                      Text(lastRead.description),
-                    ],
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            lastRead.surat,
+                            style: Theme.of(context).textTheme.headline2,
+                          ),
+                          Text(lastRead.meaning),
+                          const SizedBox(height: 10.0),
+                          Text(lastRead.description),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+                Positioned.fill(
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: () => _toQuranDetailAction(lastRead),
+                      borderRadius: BorderRadius.circular(Measure.borderRadius),
+                    ),
                   ),
-                )
+                ),
               ],
             );
           }
