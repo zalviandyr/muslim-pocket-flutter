@@ -15,106 +15,134 @@ part 'event_states/user_event.dart';
 part 'event_states/user_state.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
-  UserBloc() : super(UserUninitialized());
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseStorage _storage = FirebaseStorage.instance;
 
-  @override
-  Stream<UserState> mapEventToState(UserEvent event) async* {
+  UserBloc() : super(UserUninitialized()) {
+    on(_onUserRegister);
+    on(_onUserLogin);
+    on(_onUserReLogin);
+    on(_onUserLogout);
+    on(_onUserUpdateProfile);
+  }
+
+  Future<void> _onUserRegister(
+      UserRegister event, Emitter<UserState> emit) async {
     try {
-      if (event is UserRegister) {
-        yield UserLoading();
+      emit(UserLoading());
 
-        FirebaseAuth auth = FirebaseAuth.instance;
-        UserCredential credential = await auth.createUserWithEmailAndPassword(
-          email: event.email,
-          password: event.password,
-        );
-        User user = credential.user!;
-        user.updateDisplayName(event.name);
+      UserCredential credential = await _auth.createUserWithEmailAndPassword(
+        email: event.email,
+        password: event.password,
+      );
+      User user = credential.user!;
+      await user.updateDisplayName(event.name);
 
-        // create init data
-        DatabaseReference ref = FirebaseHelper.userRef();
-        ref.child(JadwalShalat.path).set(JadwalShalat.setCityToMap());
+      // Inisialisasi data di Firebase Realtime Database
+      DatabaseReference ref = FirebaseHelper.userRef();
+      await ref.child(JadwalShalat.path).set(JadwalShalat.setCityToMap());
 
-        showInfo(Word.registerSuccess);
-
-        yield UserRegisterSuccess();
-      }
-
-      if (event is UserLogin) {
-        yield UserLoading();
-
-        FirebaseAuth auth = FirebaseAuth.instance;
-        await auth.signInWithEmailAndPassword(
-            email: event.email, password: event.password);
-
-        showInfo(Word.loginSuccess);
-
-        User user = auth.currentUser!;
-        String? imageProfile = await FirebaseHelper.imageProfile(user.uid);
-
-        yield UserLoginSuccess(
-            name: user.displayName!, imageProfile: imageProfile);
-      }
-
-      if (event is UserReLogin) {
-        User user = FirebaseAuth.instance.currentUser!;
-        String? imageProfile = await FirebaseHelper.imageProfile(user.uid);
-
-        yield UserLoginSuccess(
-            name: user.displayName!, imageProfile: imageProfile);
-      }
-
-      if (event is UserLogout) {
-        FirebaseAuth.instance.signOut();
-        yield UserUninitialized();
-      }
-
-      if (event is UserUpdateProfile) {
-        yield UserLoading();
-
-        User user = FirebaseAuth.instance.currentUser!;
-        await user.updateDisplayName(event.name);
-
-        // upload image to fire storage
-        if (event.imageToUpload != null) {
-          File file = File(event.imageToUpload!);
-          String ext = path.extension(event.imageToUpload!);
-          String filePath = user.uid + ext;
-          FirebaseStorage storage = FirebaseStorage.instance;
-
-          // delete old file if exist
-          List<Reference> items = (await storage.ref().list()).items;
-          for (Reference item in items) {
-            String uid = item.name.split('.')[0];
-            if (uid == user.uid) {
-              await storage.ref(item.fullPath).delete();
-            }
-          }
-
-          // upload
-          await storage.ref(filePath).putFile(file);
-        }
-
-        showInfo(Word.updateNameSuccess);
-
-        this.add(UserReLogin());
-      }
+      showInfo(Word.registerSuccess);
+      emit(UserRegisterSuccess());
     } on FirebaseAuthException catch (err) {
-      print(err);
-
-      if (err.code == 'email-already-in-use') {
-        showError(ValidationWord.emailAlreadyUse);
-      } else if (err.code == 'user-not-found') {
-        showError(ValidationWord.userNotFound);
-      }
-
-      yield UserError();
+      _handleAuthError(err, emit);
     } catch (err) {
       print(err);
-
       showError(ValidationWord.globalError);
-
-      yield UserError();
+      emit(UserError());
     }
+  }
+
+  Future<void> _onUserLogin(UserLogin event, Emitter<UserState> emit) async {
+    try {
+      emit(UserLoading());
+
+      await _auth.signInWithEmailAndPassword(
+          email: event.email, password: event.password);
+
+      showInfo(Word.loginSuccess);
+
+      User user = _auth.currentUser!;
+      String? imageProfile = await FirebaseHelper.imageProfile(user.uid);
+
+      emit(UserLoginSuccess(
+          name: user.displayName!, imageProfile: imageProfile));
+    } on FirebaseAuthException catch (err) {
+      _handleAuthError(err, emit);
+    } catch (err) {
+      print(err);
+      showError(ValidationWord.globalError);
+      emit(UserError());
+    }
+  }
+
+  Future<void> _onUserReLogin(
+      UserReLogin event, Emitter<UserState> emit) async {
+    User user = _auth.currentUser!;
+    String? imageProfile = await FirebaseHelper.imageProfile(user.uid);
+
+    emit(UserLoginSuccess(name: user.displayName!, imageProfile: imageProfile));
+  }
+
+  Future<void> _onUserLogout(UserLogout event, Emitter<UserState> emit) async {
+    await _auth.signOut();
+    emit(UserUninitialized());
+  }
+
+  Future<void> _onUserUpdateProfile(
+      UserUpdateProfile event, Emitter<UserState> emit) async {
+    try {
+      emit(UserLoading());
+
+      User user = _auth.currentUser!;
+      await user.updateDisplayName(event.name);
+
+      // Upload image jika ada
+      if (event.imageToUpload != null) {
+        await _uploadProfileImage(user.uid, event.imageToUpload!);
+      }
+
+      showInfo(Word.updateNameSuccess);
+
+      add(UserReLogin());
+    } on FirebaseAuthException catch (err) {
+      _handleAuthError(err, emit);
+    } catch (err) {
+      print(err);
+      showError(ValidationWord.globalError);
+      emit(UserError());
+    }
+  }
+
+  Future<void> _uploadProfileImage(String userId, String imagePath) async {
+    File file = File(imagePath);
+    String ext = path.extension(imagePath);
+    String filePath = "$userId$ext";
+
+    // Hapus file lama jika ada
+    List<Reference> items = (await _storage.ref().list()).items;
+    for (Reference item in items) {
+      String uid = item.name.split('.')[0];
+      if (uid == userId) {
+        await _storage.ref(item.fullPath).delete();
+      }
+    }
+
+    // Upload file baru
+    await _storage.ref(filePath).putFile(file);
+  }
+
+  void _handleAuthError(FirebaseAuthException err, Emitter<UserState> emit) {
+    print(err);
+
+    if (err.code == 'email-already-in-use') {
+      showError(ValidationWord.emailAlreadyUse);
+    } else if (err.code == 'user-not-found') {
+      showError(ValidationWord.userNotFound);
+    } else {
+      showError(ValidationWord.globalError);
+    }
+
+    emit(UserError());
   }
 }

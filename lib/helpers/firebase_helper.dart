@@ -6,7 +6,7 @@ class FirebaseHelper {
   static DatabaseReference userRef() {
     User user = FirebaseAuth.instance.currentUser!;
     FirebaseDatabase database = FirebaseDatabase.instance;
-    return database.reference().child(user.uid);
+    return database.ref().child(user.uid);
   }
 
   static Future<String?> imageProfile(String userUid) async {

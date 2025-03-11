@@ -182,7 +182,7 @@ class _ShalatScreenState extends State<ShalatScreen> {
                   horizontal: Measure.horizontalPadding,
                   vertical: Measure.verticalPadding),
               decoration: BoxDecoration(
-                color: Theme.of(context).accentColor.withOpacity(0.3),
+                color: Theme.of(context).colorScheme.secondary.withOpacity(0.3),
                 borderRadius: BorderRadius.circular(Measure.borderRadius),
               ),
               child: Column(
@@ -190,12 +190,12 @@ class _ShalatScreenState extends State<ShalatScreen> {
                 children: [
                   Text(
                     state.nextShalatSchedule.shalat,
-                    style: Theme.of(context).textTheme.headline1,
+                    style: Theme.of(context).textTheme.displayLarge,
                   ),
                   const Spacer(),
                   Text(
                     state.nextShalatSchedule.time,
-                    style: Theme.of(context).textTheme.bodyText1,
+                    style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   const SizedBox(height: 5.0),
                   Text('Sholat selanjutnya'),
@@ -235,7 +235,7 @@ class _ShalatScreenState extends State<ShalatScreen> {
               const Spacer(),
               Text(
                 schedule.dateFormat,
-                style: Theme.of(context).textTheme.bodyText1,
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
               const Spacer(),
               MaterialButton(

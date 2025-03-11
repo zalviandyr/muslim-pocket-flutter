@@ -26,7 +26,7 @@ class _QuranDetailScreenState extends State<QuranDetailScreen>
 
   @override
   void initState() {
-    WidgetsBinding.instance!.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
 
     _quranDetailScreenBloc = BlocProvider.of<QuranDetailScreenBloc>(context);
     _quranLastReadBloc = BlocProvider.of<QuranLastReadBloc>(context);
@@ -72,7 +72,7 @@ class _QuranDetailScreenState extends State<QuranDetailScreen>
 
   @override
   void dispose() {
-    WidgetsBinding.instance!.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
 
     _scrollController.dispose();
 
@@ -152,7 +152,7 @@ class _QuranDetailScreenState extends State<QuranDetailScreen>
     if (state is QuranDetailScreenFetchSuccess) {
       // if current and last read same
       if (state.lastRead == widget.quranSurat) {
-        WidgetsBinding.instance!.addPostFrameCallback((_) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
           _scrollController.animateTo(
             state.lastRead?.lastReadPosition ??
                 widget.quranSurat.lastReadPosition,
@@ -228,7 +228,7 @@ class _QuranDetailScreenState extends State<QuranDetailScreen>
           vertical: Measure.verticalPadding,
         ),
         decoration: BoxDecoration(
-          color: Theme.of(context).accentColor.withOpacity(0.3),
+          color: Theme.of(context).colorScheme.secondary.withOpacity(0.3),
           borderRadius: BorderRadius.circular(Measure.borderRadius),
         ),
         child: Column(
@@ -247,7 +247,7 @@ class _QuranDetailScreenState extends State<QuranDetailScreen>
             const SizedBox(height: 10.0),
             Text(
               widget.quranSurat.surat,
-              style: Theme.of(context).textTheme.headline2,
+              style: Theme.of(context).textTheme.displayMedium,
             ),
             Text(widget.quranSurat.meaning),
             const SizedBox(height: 5.0),

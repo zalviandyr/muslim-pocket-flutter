@@ -1,31 +1,26 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:muslim_pocket/blocs/blocs.dart';
 import 'package:muslim_pocket/config/configs.dart';
-import 'package:muslim_pocket/models/models.dart';
 import 'package:muslim_pocket/service.dart';
 import 'package:muslim_pocket/ui/widgets/widgets.dart';
 
 class QuranScreenBloc extends Bloc<QuranEvent, QuranState> {
-  QuranScreenBloc() : super(QuranUninitialized());
+  QuranScreenBloc() : super(QuranUninitialized()) {
+    on<QuranScreenFetch>(_onQuranScreenFetch);
+  }
 
-  @override
-  Stream<QuranState> mapEventToState(QuranEvent event) async* {
+  Future<void> _onQuranScreenFetch(
+      QuranScreenFetch event, Emitter<QuranState> emit) async {
     try {
-      if (event is QuranScreenFetch) {
-        yield QuranLoading();
+      emit(QuranLoading());
 
-        List<QuranSurat> quranSurat = await Service.getQuranSurat();
+      final quranSurat = await Service.getQuranSurat();
 
-        yield QuranScreenFetchSuccess(
-          quranSurat: quranSurat,
-        );
-      }
+      emit(QuranScreenFetchSuccess(quranSurat: quranSurat));
     } catch (err) {
       print(err);
-
       showError(ValidationWord.globalError);
-
-      yield QuranError();
+      emit(QuranError());
     }
   }
 }

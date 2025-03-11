@@ -37,7 +37,7 @@ class SuratItem extends StatelessWidget {
                     children: [
                       Text(
                         quranSurat.surat,
-                        style: Theme.of(context).textTheme.bodyText1,
+                        style: Theme.of(context).textTheme.bodyLarge,
                       ),
                       Text(
                           '${quranSurat.type} - ${quranSurat.countOfAyat} Ayat'),
@@ -46,7 +46,7 @@ class SuratItem extends StatelessWidget {
                   const Spacer(),
                   Text(
                     quranSurat.asma,
-                    style: Theme.of(context).textTheme.subtitle2,
+                    style: Theme.of(context).textTheme.titleSmall,
                     textDirection: TextDirection.rtl,
                   ),
                 ],

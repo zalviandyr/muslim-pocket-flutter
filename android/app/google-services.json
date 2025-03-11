@@ -8,25 +8,12 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:351761392227:android:5b0e23349d2745e7f1ce56",
+        "mobilesdk_app_id": "1:351761392227:android:2366adea08aedc86f1ce56",
         "android_client_info": {
-          "package_name": "com.zerachi.muslim_pocket"
+          "package_name": "com.muslim.pocket"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "351761392227-kh82io4j1g217sc04f1ebnhkgh22fv3t.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.zerachi.muslim_pocket",
-            "certificate_hash": "0384f2a4f6bf739705ddc574df9162ca947a49ac"
-          }
-        },
-        {
-          "client_id": "351761392227-j1e28vahc0sskta2keanffvn4bl1ei7n.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
           "current_key": "AIzaSyAwtCgPyMmai6OZPv5-ZXK3LjRjnifQLWM"
@@ -34,12 +21,26 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "351761392227-j1e28vahc0sskta2keanffvn4bl1ei7n.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:351761392227:android:5b0e23349d2745e7f1ce56",
+        "android_client_info": {
+          "package_name": "com.zerachi.muslim_pocket"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwtCgPyMmai6OZPv5-ZXK3LjRjnifQLWM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
         }
       }
     }

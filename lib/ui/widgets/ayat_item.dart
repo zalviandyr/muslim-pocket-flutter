@@ -26,7 +26,7 @@ class AyatItem extends StatelessWidget {
             ),
             child: Text(
               quranAyat.order,
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
           ),
           const SizedBox(height: 10.0),
@@ -34,7 +34,7 @@ class AyatItem extends StatelessWidget {
             alignment: Alignment.centerRight,
             child: Text(
               quranAyat.arabic,
-              style: Theme.of(context).textTheme.subtitle2,
+              style: Theme.of(context).textTheme.titleSmall,
               textDirection: TextDirection.rtl,
             ),
           ),

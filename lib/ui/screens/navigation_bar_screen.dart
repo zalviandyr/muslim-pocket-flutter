@@ -48,7 +48,7 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
               child: CustomNavigationBar(
                 isFloating: true,
                 borderRadius: Radius.circular(Measure.borderRadius),
-                selectedColor: Theme.of(context).accentColor,
+                selectedColor: Theme.of(context).colorScheme.secondary,
                 unSelectedColor: Pallette.black,
                 currentIndex: currentIndex,
                 onTap: _bottomNavigationAction,

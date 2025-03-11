@@ -1,4 +1,3 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:muslim_pocket/blocs/blocs.dart';
@@ -13,51 +12,58 @@ class ShalatScreenBloc extends Bloc<ShalatEvent, ShalatState> {
 
   ShalatScreenBloc()
       : _homeScreenBloc = BlocProvider.of<HomeScreenBloc>(Get.context!),
-        super(ShalatUninitialized());
+        super(ShalatUninitialized()) {
+    on<ShalatScreenFetch>(_onShalatScreenFetch);
+    on<ShalatFetchCity>(_onShalatFetchCity);
+  }
 
-  @override
-  Stream<ShalatState> mapEventToState(ShalatEvent event) async* {
+  Future<void> _onShalatScreenFetch(
+      ShalatScreenFetch event, Emitter<ShalatState> emit) async {
     try {
-      if (event is ShalatScreenFetch) {
-        yield ShalatLoading();
+      emit(ShalatLoading());
 
-        DatabaseReference ref = FirebaseHelper.userRef();
-        String city = JadwalShalat.getCityFromMap((await ref.get()).value);
+      final ref = FirebaseHelper.userRef();
+      final city = JadwalShalat.getCityFromMap((await ref.get()).value);
 
-        List<String> cities = await Service.getShalatCity();
-        List<JadwalShalat> shalatSchedule =
-            await Service.getShalatSchedule(city.toLowerCase());
-        NextShalat nextShalat = ShalatHelper.getNextShalat(shalatSchedule);
-        List<NiatBacaanShalat> niatShalat = await Service.getNiatShalat();
-        List<NiatBacaanShalat> bacaanShalat = await Service.getBacaanShalat();
+      final cities = await Service.getShalatCity();
+      final shalatSchedule =
+          await Service.getShalatSchedule(city.toLowerCase());
+      final nextShalat = ShalatHelper.getNextShalat(shalatSchedule);
+      final niatShalat = await Service.getNiatShalat();
+      final bacaanShalat = await Service.getBacaanShalat();
 
-        yield ShalatScreenFetchSuccess(
-          cities: cities,
-          shalatLocation: city,
-          listShalatSchedule: shalatSchedule,
-          nextShalatSchedule: nextShalat,
-          niatShalat: niatShalat,
-          bacaanShalat: bacaanShalat,
-        );
-      }
-
-      if (event is ShalatFetchCity) {
-        DatabaseReference ref = FirebaseHelper.userRef();
-        ref
-            .child(JadwalShalat.path)
-            .set(JadwalShalat.setCityToMap(city: event.city));
-
-        // re-fetch home screen
-        _homeScreenBloc.add(HomeScreenFetch());
-
-        this.add(ShalatScreenFetch());
-      }
+      emit(ShalatScreenFetchSuccess(
+        cities: cities,
+        shalatLocation: city,
+        listShalatSchedule: shalatSchedule,
+        nextShalatSchedule: nextShalat,
+        niatShalat: niatShalat,
+        bacaanShalat: bacaanShalat,
+      ));
     } catch (err) {
       print(err);
-
       showError(ValidationWord.globalError);
+      emit(ShalatError());
+    }
+  }
 
-      yield ShalatError();
+  Future<void> _onShalatFetchCity(
+      ShalatFetchCity event, Emitter<ShalatState> emit) async {
+    try {
+      final ref = FirebaseHelper.userRef();
+      await ref
+          .child(JadwalShalat.path)
+          .set(JadwalShalat.setCityToMap(city: event.city));
+
+      // Re-fetch home screen
+      _homeScreenBloc.add(HomeScreenFetch());
+
+      // Fetch updated shalat data
+      add(ShalatScreenFetch());
+    } catch (err) {
+      print(err);
+      showError(ValidationWord.globalError);
+      emit(ShalatError());
     }
   }
 }

@@ -113,7 +113,7 @@ class _QuranScreenState extends State<QuranScreen> {
                 vertical: Measure.verticalPadding,
               ),
               decoration: BoxDecoration(
-                color: Theme.of(context).accentColor.withOpacity(0.3),
+                color: Theme.of(context).colorScheme.secondary.withOpacity(0.3),
                 borderRadius: BorderRadius.circular(Measure.borderRadius),
               ),
               child: Column(
@@ -121,7 +121,7 @@ class _QuranScreenState extends State<QuranScreen> {
                 children: [
                   Text(
                     Word.lastRead,
-                    style: Theme.of(context).textTheme.headline2,
+                    style: Theme.of(context).textTheme.displayMedium,
                   ),
                   const SizedBox(height: 5.0),
                   Text(lastRead.surat),

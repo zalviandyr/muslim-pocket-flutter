@@ -1,0 +1,30 @@
+{
+    "flutter": {
+        "platforms": {
+            "android": {
+                "default": {
+                    "projectId": "muslim-pocket-6f5a1",
+                    "appId": "1:351761392227:android:2366adea08aedc86f1ce56",
+                    "fileOutput": "android/app/google-services.json"
+                }
+            },
+            "ios": {
+                "default": {
+                    "projectId": "muslim-pocket-6f5a1",
+                    "appId": "1:351761392227:ios:154a647bfe61f089f1ce56",
+                    "uploadDebugSymbols": false,
+                    "fileOutput": "ios/Runner/GoogleService-Info.plist"
+                }
+            },
+            "dart": {
+                "lib/firebase_options.dart": {
+                    "projectId": "muslim-pocket-6f5a1",
+                    "configurations": {
+                        "android": "1:351761392227:android:2366adea08aedc86f1ce56",
+                        "ios": "1:351761392227:ios:154a647bfe61f089f1ce56"
+                    }
+                }
+            }
+        }
+    }
+}

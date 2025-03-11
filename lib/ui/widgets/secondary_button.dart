@@ -24,7 +24,7 @@ class SecondaryButton extends StatelessWidget {
               horizontal: Measure.horizontalPadding,
               vertical: Measure.verticalPadding),
           decoration: BoxDecoration(
-            border: Border.all(color: Theme.of(context).accentColor),
+            border: Border.all(color: Theme.of(context).colorScheme.secondary),
             borderRadius: BorderRadius.circular(Measure.borderRadius),
           ),
           child: Row(
@@ -32,7 +32,7 @@ class SecondaryButton extends StatelessWidget {
             children: [
               Text(
                 label,
-                style: Theme.of(context).textTheme.button,
+                style: Theme.of(context).textTheme.labelLarge,
               ),
               Icon(
                 icon,

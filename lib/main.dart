@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,10 +6,14 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:muslim_pocket/blocs/blocs.dart';
 import 'package:muslim_pocket/config/pallette.dart';
+import 'package:muslim_pocket/firebase_options.dart';
 import 'package:muslim_pocket/ui/screens/screens.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   runApp(MyApp());
 }
 
@@ -35,64 +40,63 @@ class MyApp extends StatelessWidget {
         title: 'Muslim Pocket',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.green,
-          textTheme: TextTheme(
-            headline1: GoogleFonts.manrope(
+          colorScheme: ColorScheme.fromSwatch(
+            primarySwatch: Colors.green,
+            accentColor: Pallette.accentColor,
+          ),
+          textTheme: GoogleFonts.manropeTextTheme().copyWith(
+            displayLarge: TextStyle(
               fontSize: 27.0,
               fontWeight: FontWeight.bold,
               color: Colors.black,
               letterSpacing: 0.15,
             ),
-            headline2: GoogleFonts.manrope(
+            displayMedium: TextStyle(
               fontSize: 20.0,
               fontWeight: FontWeight.bold,
               color: Colors.black,
               letterSpacing: 0.15,
             ),
-            bodyText1: GoogleFonts.manrope(
+            bodyLarge: TextStyle(
               fontSize: 13.0,
               fontWeight: FontWeight.bold,
               color: Colors.black,
               letterSpacing: 0.5,
             ),
-            bodyText2: GoogleFonts.manrope(
+            bodyMedium: TextStyle(
               fontSize: 13.0,
               fontWeight: FontWeight.w500,
               color: Colors.black,
               letterSpacing: 0.5,
             ),
-            // text form field
-            subtitle1: GoogleFonts.manrope(
+            titleLarge: TextStyle(
               fontSize: 13.0,
               color: Colors.black,
               letterSpacing: 0.5,
             ),
-            subtitle2: GoogleFonts.amiri(
+            titleMedium: GoogleFonts.amiri(
               fontSize: 20.0,
               fontWeight: FontWeight.w500,
               color: Colors.black,
               letterSpacing: 0.5,
             ),
-            caption: GoogleFonts.manrope(
+            labelSmall: TextStyle(
               fontSize: 10.0,
               color: Colors.black,
             ),
-            button: GoogleFonts.manrope(
+            labelLarge: TextStyle(
               fontSize: 14.0,
               fontWeight: FontWeight.bold,
               letterSpacing: 1.0,
             ),
           ),
           appBarTheme: AppBarTheme(
-            iconTheme: IconThemeData(
+            iconTheme: IconThemeData(color: Colors.white),
+            backgroundColor: Pallette.primaryColor,
+            titleTextStyle: GoogleFonts.manrope(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
               color: Colors.white,
-            ),
-            textTheme: TextTheme(
-              headline6: GoogleFonts.manrope(
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
             ),
             systemOverlayStyle: SystemUiOverlayStyle(
               statusBarColor: Pallette.primaryColor,
@@ -102,12 +106,8 @@ class MyApp extends StatelessWidget {
             enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(color: Pallette.black),
             ),
-            hintStyle: GoogleFonts.manrope(
-              fontSize: 13.0,
-            ),
+            hintStyle: GoogleFonts.manrope(fontSize: 13.0),
           ),
-          primaryColor: Pallette.primaryColor,
-          accentColor: Pallette.accentColor,
           scaffoldBackgroundColor: Pallette.scaffoldBackground,
         ),
         home: AnnotatedRegion<SystemUiOverlayStyle>(
