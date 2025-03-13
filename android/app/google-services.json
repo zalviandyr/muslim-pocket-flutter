@@ -1,45 +1,27 @@
 {
   "project_info": {
-    "project_number": "351761392227",
-    "firebase_url": "https://muslim-pocket-6f5a1-default-rtdb.asia-southeast1.firebasedatabase.app",
-    "project_id": "muslim-pocket-6f5a1",
-    "storage_bucket": "muslim-pocket-6f5a1.appspot.com"
+    "project_number": "1009556560307",
+    "firebase_url": "https://muslim-pocket-ca0b0-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "muslim-pocket-ca0b0",
+    "storage_bucket": "muslim-pocket-ca0b0.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:351761392227:android:5b0e23349d2745e7f1ce56",
+        "mobilesdk_app_id": "1:1009556560307:android:1a99b2873e18fedb4153c6",
         "android_client_info": {
-          "package_name": "com.zerachi.muslim_pocket"
+          "package_name": "com.muslim.pocket"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "351761392227-kh82io4j1g217sc04f1ebnhkgh22fv3t.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.zerachi.muslim_pocket",
-            "certificate_hash": "0384f2a4f6bf739705ddc574df9162ca947a49ac"
-          }
-        },
-        {
-          "client_id": "351761392227-j1e28vahc0sskta2keanffvn4bl1ei7n.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAwtCgPyMmai6OZPv5-ZXK3LjRjnifQLWM"
+          "current_key": "AIzaSyB9buhYYKojdF7aOBwGPG7jmy9bG6ejmTQ"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "351761392227-j1e28vahc0sskta2keanffvn4bl1ei7n.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

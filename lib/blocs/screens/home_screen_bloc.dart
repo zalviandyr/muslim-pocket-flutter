@@ -8,39 +8,41 @@ import 'package:muslim_pocket/service.dart';
 import 'package:muslim_pocket/ui/widgets/widgets.dart';
 
 class HomeScreenBloc extends Bloc<HomeEvent, HomeState> {
-  HomeScreenBloc() : super(HomeUninitialized());
+  HomeScreenBloc() : super(HomeUninitialized()) {
+    on<HomeScreenFetch>(_onHomeScreenFetch);
+  }
 
-  @override
-  Stream<HomeState> mapEventToState(HomeEvent event) async* {
+  Future<void> _onHomeScreenFetch(
+      HomeScreenFetch event, Emitter<HomeState> emit) async {
     try {
-      if (event is HomeScreenFetch) {
-        yield HomeLoading();
+      emit(HomeLoading());
 
-        DatabaseReference ref = FirebaseHelper.userRef();
-        String city = JadwalShalat.getCityFromMap((await ref.get()).value);
+      DatabaseReference ref = FirebaseHelper.userRef();
+      DataSnapshot snapshot = await ref.get();
+      String city = JadwalShalat.getCityFromMap(snapshot.value);
 
-        AsmaulHusna asmaulHusna = await Service.getRandomAsmaulHusna();
-        List<JadwalShalat> shalatSchedule =
-            await Service.getShalatSchedule(city.toLowerCase());
-        NextShalat nextShalat = ShalatHelper.getNextShalat(shalatSchedule);
-        Quote quote = await Service.getRandomQuote();
-        QuranSurat? quranSurat =
-            QuranSurat.fromMap((await ref.child(QuranSurat.path).get()).value);
+      final asmaulHusna = await Service.getRandomAsmaulHusna();
+      final shalatSchedule =
+          await Service.getShalatSchedule(city.toLowerCase());
+      final nextShalat = ShalatHelper.getNextShalat(shalatSchedule);
+      final quote = await Service.getRandomQuote();
 
-        yield HomeScreenFetchSuccess(
-          asmaulHusna: asmaulHusna,
-          shalatLocation: city,
-          nextShalatSchedule: nextShalat,
-          quote: quote,
-          lastRead: quranSurat,
-        );
-      }
-    } catch (err) {
-      print(err);
+      DataSnapshot quranSnapshot = await ref.child(QuranSurat.path).get();
+      final quranSurat = quranSnapshot.value != null
+          ? QuranSurat.fromMap(quranSnapshot.value)
+          : null;
 
+      emit(HomeScreenFetchSuccess(
+        asmaulHusna: asmaulHusna,
+        shalatLocation: city,
+        nextShalatSchedule: nextShalat,
+        quote: quote,
+        lastRead: quranSurat,
+      ));
+    } catch (err, trace) {
+      onError(err, trace);
       showError(ValidationWord.globalError);
-
-      yield HomeError();
+      emit(HomeError());
     }
   }
 }

@@ -10,6 +10,7 @@ export 'navigation_cubit.dart';
 export 'user_bloc.dart';
 export 'quran_last_read_bloc.dart';
 export 'quran_audio_bloc.dart';
+export 'app_bloc_observer.dart';
 
 export 'event_states/quran_event.dart';
 export 'event_states/quran_state.dart';

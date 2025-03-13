@@ -101,7 +101,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               const SizedBox(height: 40.0),
               Text(
                 Word.register,
-                style: Theme.of(context).textTheme.headline1,
+                style: Theme.of(context).textTheme.displayLarge,
               ),
               const SizedBox(height: 2.0),
               Text(Word.fillOutTheForm),
@@ -200,14 +200,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         children: [
                           TextSpan(
                             text: Word.haveAnAccount,
-                            style: Theme.of(context).textTheme.bodyText2,
+                            style: Theme.of(context).textTheme.bodyMedium,
                           ),
                           TextSpan(text: ' '),
                           TextSpan(
                             text: Word.login.toLowerCase(),
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText1!
+                                .bodyLarge!
                                 .copyWith(
                                     color: Theme.of(context).primaryColor),
                             recognizer: TapGestureRecognizer()

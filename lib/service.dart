@@ -5,7 +5,7 @@ import 'package:muslim_pocket/config/configs.dart';
 import 'package:muslim_pocket/models/models.dart';
 
 class Service {
-  static const _baseUrl = 'https://zerachiuw.my.id/api/muslim';
+  static const _baseUrl = 'http://192.168.110.1:4000/api/muslim';
 
   static Future<AsmaulHusna> getRandomAsmaulHusna() async {
     Uri url = Uri.parse('$_baseUrl/random/asmaul-husna');

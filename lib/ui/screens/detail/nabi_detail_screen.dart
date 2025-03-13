@@ -57,12 +57,12 @@ class _NabiDetailScreenState extends State<NabiDetailScreen> {
                 const SizedBox(height: 10.0),
                 Text(
                   'Tahun kelahiran : ${nabiDetail.bornDate}',
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 const SizedBox(height: 5.0),
                 Text(
                   'Usia : ${nabiDetail.age}',
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 const SizedBox(height: 5.0),
                 Text(

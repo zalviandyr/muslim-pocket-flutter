@@ -29,7 +29,8 @@ class ArabicCard extends StatelessWidget {
                 vertical: Measure.verticalPadding),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(Measure.borderRadius),
-              border: Border.all(color: Theme.of(context).accentColor),
+              border:
+                  Border.all(color: Theme.of(context).colorScheme.secondary),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,7 +39,7 @@ class ArabicCard extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   child: Text(
                     arabic,
-                    style: Theme.of(context).textTheme.subtitle2,
+                    style: Theme.of(context).textTheme.titleSmall,
                     textDirection: TextDirection.rtl,
                   ),
                 ),

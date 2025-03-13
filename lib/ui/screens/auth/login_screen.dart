@@ -82,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 40.0),
               Text(
                 Word.login,
-                style: Theme.of(context).textTheme.headline1,
+                style: Theme.of(context).textTheme.displayLarge,
               ),
               const SizedBox(height: 2.0),
               Text(Word.fillOutTheForm),
@@ -142,14 +142,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           TextSpan(
                             text: Word.dontHaveAnAccount,
-                            style: Theme.of(context).textTheme.bodyText2,
+                            style: Theme.of(context).textTheme.bodyMedium,
                           ),
                           TextSpan(text: ' '),
                           TextSpan(
                             text: Word.register.toLowerCase(),
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText1!
+                                .bodyLarge!
                                 .copyWith(
                                     color: Theme.of(context).primaryColor),
                             recognizer: TapGestureRecognizer()

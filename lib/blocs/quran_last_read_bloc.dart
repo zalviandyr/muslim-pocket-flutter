@@ -1,4 +1,3 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:muslim_pocket/blocs/blocs.dart';
 import 'package:muslim_pocket/config/configs.dart';
@@ -7,34 +6,40 @@ import 'package:muslim_pocket/models/models.dart';
 import 'package:muslim_pocket/ui/widgets/widgets.dart';
 
 class QuranLastReadBloc extends Bloc<QuranEvent, QuranState> {
-  QuranLastReadBloc() : super(QuranUninitialized());
+  QuranLastReadBloc() : super(QuranUninitialized()) {
+    on<QuranFetchLastRead>(_onQuranFetchLastRead);
+    on<QuranSaveLastRead>(_onQuranSaveLastRead);
+  }
 
-  @override
-  Stream<QuranState> mapEventToState(QuranEvent event) async* {
+  Future<void> _onQuranFetchLastRead(
+      QuranFetchLastRead event, Emitter<QuranState> emit) async {
     try {
-      if (event is QuranFetchLastRead) {
-        yield QuranLoading();
+      emit(QuranLoading());
 
-        DatabaseReference ref = FirebaseHelper.userRef();
-        QuranSurat? lastRead =
-            QuranSurat.fromMap((await ref.child(QuranSurat.path).get()).value);
+      final ref = FirebaseHelper.userRef();
+      final snapshot = await ref.child(QuranSurat.path).get();
+      final lastRead = QuranSurat.fromMap(snapshot.value);
 
-        yield QuranFetchLastReadSuccess(lastRead: lastRead);
-      }
-
-      if (event is QuranSaveLastRead) {
-        DatabaseReference ref = FirebaseHelper.userRef();
-        ref.child(QuranSurat.path).set(event.lastRead.toMap());
-
-        // re-fetch
-        this.add(QuranFetchLastRead());
-      }
-    } catch (err) {
-      print(err);
-
+      emit(QuranFetchLastReadSuccess(lastRead: lastRead));
+    } catch (err, trace) {
+      onError(err, trace);
       showError(ValidationWord.globalError);
+      emit(QuranError());
+    }
+  }
 
-      yield QuranError();
+  Future<void> _onQuranSaveLastRead(
+      QuranSaveLastRead event, Emitter<QuranState> emit) async {
+    try {
+      final ref = FirebaseHelper.userRef();
+      await ref.child(QuranSurat.path).set(event.lastRead.toMap());
+
+      // Re-fetch after saving
+      add(QuranFetchLastRead());
+    } catch (err, trace) {
+      onError(err, trace);
+      showError(ValidationWord.globalError);
+      emit(QuranError());
     }
   }
 }

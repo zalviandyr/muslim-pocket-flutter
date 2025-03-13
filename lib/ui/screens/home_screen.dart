@@ -80,12 +80,12 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    color: Theme.of(context).accentColor,
+                    color: Theme.of(context).colorScheme.secondary,
                     borderRadius: BorderRadius.circular(50.0),
                     boxShadow: Pallette.boxShadow,
                   ),
                   child: CircleAvatar(
-                    foregroundColor: Theme.of(context).accentColor,
+                    foregroundColor: Theme.of(context).colorScheme.secondary,
                     radius: 24.0,
                     child: CircleAvatar(
                       foregroundImage: (state.imageProfile != null
@@ -103,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(height: 2.0),
                     Text(
                       state.name,
-                      style: Theme.of(context).textTheme.bodyText1,
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ],
                 ),
@@ -122,14 +122,14 @@ class _HomeScreenState extends State<HomeScreen> {
       children: [
         Text(
           state.asmaulHusna.latin,
-          style: Theme.of(context).textTheme.bodyText1,
+          style: Theme.of(context).textTheme.bodyLarge,
         ),
         const SizedBox(height: 10.0),
         Align(
           alignment: Alignment.centerRight,
           child: Text(
             state.asmaulHusna.arabic,
-            style: Theme.of(context).textTheme.subtitle2,
+            style: Theme.of(context).textTheme.titleSmall,
             textDirection: TextDirection.rtl,
           ),
         ),
@@ -137,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
         const SizedBox(height: 3.0),
         Text(
           state.asmaulHusna.descriptionEn,
-          style: Theme.of(context).textTheme.bodyText1,
+          style: Theme.of(context).textTheme.bodyLarge,
         ),
       ],
     );
@@ -149,7 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
       children: [
         Text(
           state.shalatLocation,
-          style: Theme.of(context).textTheme.bodyText1,
+          style: Theme.of(context).textTheme.bodyLarge,
         ),
         const SizedBox(height: 10.0),
         Container(
@@ -182,7 +182,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       horizontal: Measure.horizontalPadding,
                       vertical: Measure.verticalPadding),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).accentColor.withOpacity(0.3),
+                    color: Theme.of(context).colorScheme.secondary.withOpacity(0.3),
                     borderRadius: BorderRadius.circular(Measure.borderRadius),
                   ),
                   child: Column(
@@ -190,12 +190,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Text(
                         state.nextShalatSchedule.shalat,
-                        style: Theme.of(context).textTheme.headline1,
+                        style: Theme.of(context).textTheme.displayLarge,
                       ),
                       const Spacer(),
                       Text(
                         state.nextShalatSchedule.time,
-                        style: Theme.of(context).textTheme.bodyText1,
+                        style: Theme.of(context).textTheme.bodyLarge,
                       ),
                       const SizedBox(height: 5.0),
                       Text(Word.nextShalat),
@@ -231,7 +231,7 @@ class _HomeScreenState extends State<HomeScreen> {
         state.quote.quote,
         style: Theme.of(context)
             .textTheme
-            .bodyText2!
+            .bodyMedium!
             .copyWith(color: Colors.white),
       ),
     );
@@ -253,7 +253,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         Text(
                           Word.lastRead,
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         Icon(
                           Icons.chevron_right,
@@ -279,7 +279,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           Text(
                             lastRead.surat,
-                            style: Theme.of(context).textTheme.headline2,
+                            style: Theme.of(context).textTheme.displayMedium,
                           ),
                           Text(lastRead.meaning),
                           const SizedBox(height: 10.0),

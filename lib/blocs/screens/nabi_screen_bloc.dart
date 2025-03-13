@@ -1,29 +1,26 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:muslim_pocket/blocs/blocs.dart';
 import 'package:muslim_pocket/config/configs.dart';
-import 'package:muslim_pocket/models/models.dart';
 import 'package:muslim_pocket/service.dart';
 import 'package:muslim_pocket/ui/widgets/widgets.dart';
 
 class NabiScreenBloc extends Bloc<NabiEvent, NabiState> {
-  NabiScreenBloc() : super(NabiUninitialized());
+  NabiScreenBloc() : super(NabiUninitialized()) {
+    on<NabiScreenFetch>(_onNabiScreenFetch);
+  }
 
-  @override
-  Stream<NabiState> mapEventToState(NabiEvent event) async* {
+  Future<void> _onNabiScreenFetch(
+      NabiScreenFetch event, Emitter<NabiState> emit) async {
     try {
-      if (event is NabiScreenFetch) {
-        yield NabiLoading();
+      emit(NabiLoading());
 
-        List<Nabi> nabi = await Service.getNabi();
+      final nabi = await Service.getNabi();
 
-        yield NabiScreenFetchSuccess(nabi: nabi);
-      }
-    } catch (err) {
-      print(err);
-
+      emit(NabiScreenFetchSuccess(nabi: nabi));
+    } catch (err, trace) {
+      onError(err, trace);
       showError(ValidationWord.globalError);
-
-      yield NabiError();
+      emit(NabiError());
     }
   }
 }

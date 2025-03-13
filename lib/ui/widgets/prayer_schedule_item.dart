@@ -21,7 +21,7 @@ class PrayerScheduleItem extends StatelessWidget {
                 Text(label),
                 Text(
                   time,
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
               ],
             ),

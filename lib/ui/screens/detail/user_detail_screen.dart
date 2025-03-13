@@ -73,7 +73,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                     children: [
                       Icon(
                         Icons.camera,
-                        color: Theme.of(context).accentColor,
+                        color: Theme.of(context).colorScheme.secondary,
                       ),
                       const SizedBox(width: 10.0),
                       Text(Word.getImageFromCamera),
@@ -89,7 +89,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                     children: [
                       Icon(
                         Icons.collections,
-                        color: Theme.of(context).accentColor,
+                        color: Theme.of(context).colorScheme.secondary,
                       ),
                       const SizedBox(width: 10.0),
                       Text(Word.getImageFromGallery),
@@ -144,12 +144,12 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                   Container(
                     width: 250.0,
                     decoration: BoxDecoration(
-                      color: Theme.of(context).accentColor,
+                      color: Theme.of(context).colorScheme.secondary,
                       shape: BoxShape.circle,
                       boxShadow: Pallette.boxShadow,
                     ),
                     child: CircleAvatar(
-                      foregroundColor: Theme.of(context).accentColor,
+                      foregroundColor: Theme.of(context).colorScheme.secondary,
                       radius: 80.0,
                       child: CircleAvatar(
                         foregroundImage: (_imagePathToUpload != null
@@ -169,7 +169,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                       onPressed: _editPhotoAction,
                       minWidth: 0.0,
                       shape: CircleBorder(),
-                      color: Theme.of(context).accentColor,
+                      color: Theme.of(context).colorScheme.secondary,
                       padding: const EdgeInsets.all(7.0),
                       child: Icon(
                         Icons.edit,
