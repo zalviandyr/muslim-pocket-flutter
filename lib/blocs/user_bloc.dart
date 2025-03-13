@@ -46,8 +46,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       emit(UserRegisterSuccess());
     } on FirebaseAuthException catch (err) {
       _handleAuthError(err, emit);
-    } catch (err) {
-      print(err);
+    } catch (err, trace) {
+      onError(err, trace);
       showError(ValidationWord.globalError);
       emit(UserError());
     }
@@ -69,8 +69,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           name: user.displayName!, imageProfile: imageProfile));
     } on FirebaseAuthException catch (err) {
       _handleAuthError(err, emit);
-    } catch (err) {
-      print(err);
+    } catch (err, trace) {
+      onError(err, trace);
       showError(ValidationWord.globalError);
       emit(UserError());
     }
@@ -107,8 +107,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       add(UserReLogin());
     } on FirebaseAuthException catch (err) {
       _handleAuthError(err, emit);
-    } catch (err) {
-      print(err);
+    } catch (err, trace) {
+      onError(err, trace);
       showError(ValidationWord.globalError);
       emit(UserError());
     }

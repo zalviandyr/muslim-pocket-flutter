@@ -39,8 +39,8 @@ class HomeScreenBloc extends Bloc<HomeEvent, HomeState> {
         quote: quote,
         lastRead: quranSurat,
       ));
-    } catch (err) {
-      print(err);
+    } catch (err, trace) {
+      onError(err, trace);
       showError(ValidationWord.globalError);
       emit(HomeError());
     }

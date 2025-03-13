@@ -12,6 +12,9 @@ import 'package:muslim_pocket/ui/screens/screens.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // bloc observer
+  Bloc.observer = AppBlocObserver();
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(MyApp());

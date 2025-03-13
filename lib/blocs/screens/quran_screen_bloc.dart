@@ -17,8 +17,8 @@ class QuranScreenBloc extends Bloc<QuranEvent, QuranState> {
       final quranSurat = await Service.getQuranSurat();
 
       emit(QuranScreenFetchSuccess(quranSurat: quranSurat));
-    } catch (err) {
-      print(err);
+    } catch (err, trace) {
+      onError(err, trace);
       showError(ValidationWord.globalError);
       emit(QuranError());
     }

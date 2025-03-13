@@ -21,8 +21,8 @@ class QuranLastReadBloc extends Bloc<QuranEvent, QuranState> {
       final lastRead = QuranSurat.fromMap(snapshot.value);
 
       emit(QuranFetchLastReadSuccess(lastRead: lastRead));
-    } catch (err) {
-      print(err);
+    } catch (err, trace) {
+      onError(err, trace);
       showError(ValidationWord.globalError);
       emit(QuranError());
     }
@@ -36,8 +36,8 @@ class QuranLastReadBloc extends Bloc<QuranEvent, QuranState> {
 
       // Re-fetch after saving
       add(QuranFetchLastRead());
-    } catch (err) {
-      print(err);
+    } catch (err, trace) {
+      onError(err, trace);
       showError(ValidationWord.globalError);
       emit(QuranError());
     }

@@ -50,21 +50,22 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAwtCgPyMmai6OZPv5-ZXK3LjRjnifQLWM',
-    appId: '1:351761392227:android:2366adea08aedc86f1ce56',
-    messagingSenderId: '351761392227',
-    projectId: 'muslim-pocket-6f5a1',
-    databaseURL: 'https://muslim-pocket-6f5a1-default-rtdb.asia-southeast1.firebasedatabase.app',
-    storageBucket: 'muslim-pocket-6f5a1.appspot.com',
+    apiKey: 'AIzaSyB9buhYYKojdF7aOBwGPG7jmy9bG6ejmTQ',
+    appId: '1:1009556560307:android:1a99b2873e18fedb4153c6',
+    messagingSenderId: '1009556560307',
+    projectId: 'muslim-pocket-ca0b0',
+    databaseURL: 'https://muslim-pocket-ca0b0-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'muslim-pocket-ca0b0.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDrv7Yax2nxomqFC6G-44qZFNR29srPEvw',
-    appId: '1:351761392227:ios:154a647bfe61f089f1ce56',
-    messagingSenderId: '351761392227',
-    projectId: 'muslim-pocket-6f5a1',
-    databaseURL: 'https://muslim-pocket-6f5a1-default-rtdb.asia-southeast1.firebasedatabase.app',
-    storageBucket: 'muslim-pocket-6f5a1.appspot.com',
+    apiKey: 'AIzaSyDb7VkyHDCXXTXkzz1sTprSBgYGeyrWedM',
+    appId: '1:1009556560307:ios:c002b699b9feee2c4153c6',
+    messagingSenderId: '1009556560307',
+    projectId: 'muslim-pocket-ca0b0',
+    databaseURL: 'https://muslim-pocket-ca0b0-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'muslim-pocket-ca0b0.firebasestorage.app',
     iosBundleId: 'com.muslim.pocket',
   );
+
 }

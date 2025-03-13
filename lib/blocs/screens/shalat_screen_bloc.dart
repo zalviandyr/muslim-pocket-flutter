@@ -40,8 +40,8 @@ class ShalatScreenBloc extends Bloc<ShalatEvent, ShalatState> {
         niatShalat: niatShalat,
         bacaanShalat: bacaanShalat,
       ));
-    } catch (err) {
-      print(err);
+    } catch (err, trace) {
+      onError(err, trace);
       showError(ValidationWord.globalError);
       emit(ShalatError());
     }
@@ -60,8 +60,8 @@ class ShalatScreenBloc extends Bloc<ShalatEvent, ShalatState> {
 
       // Fetch updated shalat data
       add(ShalatScreenFetch());
-    } catch (err) {
-      print(err);
+    } catch (err, trace) {
+      onError(err, trace);
       showError(ValidationWord.globalError);
       emit(ShalatError());
     }

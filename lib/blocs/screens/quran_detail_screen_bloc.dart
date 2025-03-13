@@ -28,8 +28,8 @@ class QuranDetailScreenBloc extends Bloc<QuranEvent, QuranState> {
         quranAyat: quranAyat,
         lastRead: lastRead,
       ));
-    } catch (err) {
-      print(err);
+    } catch (err, trace) {
+      onError(err, trace);
       showError(ValidationWord.globalError);
       emit(QuranError());
     }

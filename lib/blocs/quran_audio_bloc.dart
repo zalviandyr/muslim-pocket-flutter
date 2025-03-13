@@ -38,8 +38,8 @@ class QuranAudioBloc extends Bloc<QuranEvent, QuranState> {
       } else {
         emit(QuranCheckAudioNotExist());
       }
-    } catch (err) {
-      print(err);
+    } catch (err, trace) {
+      onError(err, trace);
 
       showError(ValidationWord.globalError);
 
@@ -79,8 +79,8 @@ class QuranAudioBloc extends Bloc<QuranEvent, QuranState> {
         quranSurat: quranSurat,
         downloadStream: _quranAudioDownloadCubit.stream,
       ));
-    } catch (err) {
-      print(err);
+    } catch (err, trace) {
+      onError(err, trace);
 
       showError(ValidationWord.globalError);
 
@@ -96,8 +96,8 @@ class QuranAudioBloc extends Bloc<QuranEvent, QuranState> {
       }
 
       emit(QuranCheckAudioNotExist());
-    } catch (err) {
-      print(err);
+    } catch (err, trace) {
+      onError(err, trace);
 
       showError(ValidationWord.globalError);
 
@@ -128,8 +128,8 @@ class QuranAudioBloc extends Bloc<QuranEvent, QuranState> {
         duration: _audioPlayer!.duration!,
         audioStream: _audioPlayer!.positionStream,
       ));
-    } catch (err) {
-      print(err);
+    } catch (err, trace) {
+      onError(err, trace);
 
       showError(ValidationWord.globalError);
 
@@ -149,8 +149,8 @@ class QuranAudioBloc extends Bloc<QuranEvent, QuranState> {
         duration: duration,
         positionDuration: durationPosition,
       ));
-    } catch (err) {
-      print(err);
+    } catch (err, trace) {
+      onError(err, trace);
 
       showError(ValidationWord.globalError);
 
@@ -162,8 +162,8 @@ class QuranAudioBloc extends Bloc<QuranEvent, QuranState> {
       QuranAudioResume event, Emitter<QuranState> emit) async {
     try {
       this.add(QuranAudioPlay(quranSurat: event.quranSurat));
-    } catch (err) {
-      print(err);
+    } catch (err, trace) {
+      onError(err, trace);
 
       showError(ValidationWord.globalError);
 
@@ -176,8 +176,8 @@ class QuranAudioBloc extends Bloc<QuranEvent, QuranState> {
     try {
       await _audioPlayer!.stop();
       this.add(QuranCheckAudio(quranSurat: event.quranSurat));
-    } catch (err) {
-      print(err);
+    } catch (err, trace) {
+      onError(err, trace);
 
       showError(ValidationWord.globalError);
 

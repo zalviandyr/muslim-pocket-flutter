@@ -17,8 +17,8 @@ class NabiDetailScreenBloc extends Bloc<NabiEvent, NabiState> {
       final nabiDetail = await Service.getNabiDetail(event.slug);
 
       emit(NabiDetailScreenFetchSuccess(nabiDetail: nabiDetail));
-    } catch (err) {
-      print(err);
+    } catch (err, trace) {
+      onError(err, trace);
       showError(ValidationWord.globalError);
       emit(NabiError());
     }

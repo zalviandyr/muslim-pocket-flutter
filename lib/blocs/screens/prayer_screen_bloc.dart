@@ -25,8 +25,8 @@ class PrayerScreenBloc extends Bloc<PrayerEvent, PrayerState> {
         tahlil: tahlil,
         ayatKursi: ayatKursi,
       ));
-    } catch (err) {
-      print(err);
+    } catch (err, trace) {
+      onError(err, trace);
       showError(ValidationWord.globalError);
       emit(PrayerError());
     }
